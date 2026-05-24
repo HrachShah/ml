@@ -31,7 +31,7 @@ class HiddenMarkovModel:
         # maximum likelihood estimate
         for x_list, s_list in zip(X, S):
             if len(x_list) == 0 or len(x_list) != len(s_list):
-                print >> sys.stderr, 'ERROR: x_list =', x_list, ', s_list =', s_list
+                print('ERROR: x_list =', x_list, ', s_list =', s_list, file=sys.stderr)
                 continue
             bigram[('*', '*')] += 1
             bigram[('*', s_list[0])] += 1
@@ -211,5 +211,5 @@ if __name__ == '__main__':
     baseline_acc = tagger.baseline(X_test, S_test)
     viterbi_acc = tagger.test(X_test, S_test)
 
-    print >> sys.stderr, 'Baseline accuracy %lf%%' % (100.0 * baseline_acc)
-    print >> sys.stderr, 'Accuracy for HMM POS-tagger %lf%%' % (100.0 * viterbi_acc)
+    print('Baseline accuracy %lf%%' % (100.0 * baseline_acc), file=sys.stderr)
+    print('Accuracy for HMM POS-tagger %lf%%' % (100.0 * viterbi_acc), file=sys.stderr)
