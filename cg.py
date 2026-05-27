@@ -53,7 +53,7 @@ def CG(f, w, max_fc, **argc):
                     if isnan(f3) or isinf(f3) or np.any(np.isnan(df3) + np.isinf(df3)):
                         raise NameError(('error'))
                     success = True
-                except Exception as e:
+                except (ValueError, ZeroDivisionError) as e:
                     print('Exception = %s'  % e, file=sys.stderr)
                     trace()
                     w3 = (w2 + w3) / 2.0
@@ -70,7 +70,7 @@ def CG(f, w, max_fc, **argc):
             try:
                 w3 = w1 - d1 * (w2 - w1) ** 2 / (B + sqrt(B * B - A * d1 * (w2 - w1)))
                 # add sth
-            except Exception as e:
+            except (ValueError, ZeroDivisionError) as e:
                 print('Exception = %s' % e, file=sys.stderr)
                 trace()
                 w3 = w2 * EXT
@@ -94,7 +94,7 @@ def CG(f, w, max_fc, **argc):
                     A = 6 * (f2 - f4) / (w4 - w2) + 3 * (d4 + d2)
                     B = 3 * (f4 - f2) - (2 * d2 + d4) * (w4 - w2)
                     w3 = w2 + (sqrt(B * B - A * d2 * (w4 - w2) ** 2) - B) / A
-            except Exception as e:
+            except (ValueError, ZeroDivisionError) as e:
                     print('Exception = %s' % e, file=sys.stderr)
                     trace()
                     w3 = float('NaN')
