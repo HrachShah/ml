@@ -35,9 +35,9 @@ def trace():
     '''
     try:
         raise Exception
-    except:
+    except Exception:
         f = sys.exc_info()[2].tb_frame.f_back
-    print >> sys.stderr, 'function =', f.f_code.co_name, ', line =', f.f_lineno
+    print('function =', f.f_code.co_name, ', line =', f.f_lineno, file=sys.stderr)
 
 
 def read_dense_data(fp_data):
