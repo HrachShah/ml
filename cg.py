@@ -31,7 +31,7 @@ def CG(f, w, max_fc, **argc):
     LS_failed = False
     f0, df0 = f(w, **argc)
     fval = [f0]
-    print >> sys.stderr, 'Iter = %4.4i    Cost = %lf' % (I, f0)
+    print('Iter = %4.4i    Cost = %lf' % (I, f0), file=sys.stderr)
 
     s = -df0
     d0 = float(-s.T * s)
@@ -49,12 +49,12 @@ def CG(f, w, max_fc, **argc):
                     I += 1
                     f3, df3 = f(w + w3 * s, **argc)
                     fval.append(f3)
-                    print >> sys.stderr, 'Iter = %4.4i    Cost = %lf' % (I, f3)
+                    print('Iter = %4.4i    Cost = %lf' % (I, f3), file=sys.stderr)
                     if isnan(f3) or isinf(f3) or np.any(np.isnan(df3) + np.isinf(df3)):
-                        raise NameError, ('error')
+                        raise NameError('error')
                     success = True
-                except Exception, e:
-                    print >> sys.stderr, 'Exception = %s'  % e
+                except Exception as e:
+                    print('Exception = %s'  % e, file=sys.stderr)
                     trace()
                     w3 = (w2 + w3) / 2.0
             if f3 < F0:
@@ -70,8 +70,8 @@ def CG(f, w, max_fc, **argc):
             try:
                 w3 = w1 - d1 * (w2 - w1) ** 2 / (B + sqrt(B * B - A * d1 * (w2 - w1)))
                 # add sth
-            except Exception, e:
-                print >> sys.stderr, 'Exception = %s' % e
+            except Exception as e:
+                print('Exception = %s' % e, file=sys.stderr)
                 trace()
                 w3 = w2 * EXT
                 continue
@@ -94,8 +94,8 @@ def CG(f, w, max_fc, **argc):
                     A = 6 * (f2 - f4) / (w4 - w2) + 3 * (d4 + d2)
                     B = 3 * (f4 - f2) - (2 * d2 + d4) * (w4 - w2)
                     w3 = w2 + (sqrt(B * B - A * d2 * (w4 - w2) ** 2) - B) / A
-            except Exception, e:
-                    print >> sys.stderr, 'Exception = %s' % e
+            except Exception as e:
+                    print('Exception = %s' % e, file=sys.stderr)
                     trace()
                     w3 = float('NaN')
             if isnan(w3) or isinf(w3):
@@ -107,12 +107,12 @@ def CG(f, w, max_fc, **argc):
                 w0, F0, dF0 = w + w3 * s, f3, df3
             M -= 1
             I += 1
-            print >> sys.stderr, 'Iter = %4.4i    Cost = %lf' % (I, f3)
+            print('Iter = %4.4i    Cost = %lf' % (I, f3), file=sys.stderr)
             d3 = float(df3.T * s)
       
         if abs(d3) < -SIG * d0 and f3 < f0 + w3 * RHO * d0:
             w, f0 = w + w3 * s, f3
-            print >> sys.stderr, 'Line_search = %4.4i    Cost = %lf' % (J, f0)
+            print('Line_search = %4.4i    Cost = %lf' % (J, f0), file=sys.stderr)
             J += 1
             s = float((df3.T * df3 - df0.T * df3) / (df0.T * df0)) * s - df3
             df0 = df3
@@ -128,7 +128,7 @@ def CG(f, w, max_fc, **argc):
             s, d0 = -df0, float(-s.T * s)
             w3 = 1.0 / (1.0 - d0)
             LS_failed = True
-    print >> sys.stderr, ''
+    print('', file=sys.stderr)
     # print >> sys.stderr, fval
     # print >> sys.stderr, ''
     return w
@@ -140,4 +140,4 @@ if __name__ == '__main__':
 
     x = 100.0 * np.matrix(np.ones([1, 1]))
     x_opt = CG(f, x, 40)
-    print x_opt
+    print(x_opt)

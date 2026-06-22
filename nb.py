@@ -22,7 +22,7 @@ class NaiveBayes:
     def train(self, X, Y, event_model = Bernoulli, smooth = 0.5):
 
         if event_model != Bernoulli and event_model != Multinomial:
-            print >> sys.stderr, 'event_model parameter error'
+            print('event_model parameter error', file=sys.stderr)
             return
 
         self.priors.clear()
@@ -69,15 +69,15 @@ class NaiveBayes:
         for y in self.priors:
             self.priors[y] /= 1.0 * n
 
-        print >> sys.stderr, '-' * 128
-        print >> sys.stderr, 'Top 5 strong features for each class:'
-        print >> sys.stderr, '-' * 128
+        print('-' * 128, file=sys.stderr)
+        print('Top 5 strong features for each class:', file=sys.stderr)
+        print('-' * 128, file=sys.stderr)
         
         for y in self.prob:
             ftrs = sorted(self.prob[y].items(), key = lambda x : x[1], reverse = True)
-            print >> sys.stderr, y + '\t' + '\t'.join([k + ':' + str(round(v, 5)) for k,v in ftrs[0 : 5]])
+            print(y + '\t' + '\t'.join([k + ':' + str(round(v, 5)) for k,v in ftrs[0 : 5]]), file=sys.stderr)
 
-        print >> sys.stderr, '-' * 128
+        print('-' * 128, file=sys.stderr)
 
     def test(self, X, Y):
         
@@ -114,13 +114,13 @@ if __name__ == '__main__':
     acc_train = clf.test(X_train, Y_train)
     acc_test = clf.test(X_test, Y_test)
 
-    print >> sys.stderr, 'Training accuracy for Multi-variate Bernoulli event model : %f%%' % (100 * acc_train)
-    print >> sys.stderr, 'Test accuracy for Multi-variate Bernoulli event model : %f%%' % (100 * acc_test)
+    print('Training accuracy for Multi-variate Bernoulli event model : %f%%' % (100 * acc_train), file=sys.stderr)
+    print('Test accuracy for Multi-variate Bernoulli event model : %f%%' % (100 * acc_test), file=sys.stderr)
 
     clf.train(X_train, Y_train, Multinomial)
     acc_train = clf.test(X_train, Y_train)
     acc_test = clf.test(X_test, Y_test)
 
-    print >> sys.stderr, 'Training accuracy for Multinomial event model : %f%%' % (100 * acc_train)
-    print >> sys.stderr, 'Test accuracy for Multinomial event model : %f%%' % (100 * acc_test)
+    print('Training accuracy for Multinomial event model : %f%%' % (100 * acc_train), file=sys.stderr)
+    print('Test accuracy for Multinomial event model : %f%%' % (100 * acc_test), file=sys.stderr)
 

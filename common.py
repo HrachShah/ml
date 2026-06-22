@@ -105,12 +105,12 @@ def plot_sequence_data(x, s, w = 128):
         L = max(len(p), len(q))
         
         d = L - len(q)
-        m = d / 2
+        m = d // 2
         n = d - m
         x_out.append(p + ' ' * (L - len(p)))
         s_out.append('-' * m + q + '-' * n)
 
-        m = (L - 1) / 2
+        m = (L - 1) // 2
         n = L - 1 - m
         t_out.append(' ' * m + '|' + ' ' * n)
     
@@ -119,14 +119,14 @@ def plot_sequence_data(x, s, w = 128):
     x_line = ' '.join(x_out)
 
     if len(s_line) > w:
-        for I in range(len(s_line) / w + 1):
-            print >> sys.stderr, s_line[I * w : (I + 1) * w]
-            print >> sys.stderr, t_line[I * w : (I + 1) * w]
-            print >> sys.stderr, x_line[I * w : (I + 1) * w]
+        for I in range(len(s_line) // w + 1):
+            print(s_line[I * w : (I + 1) * w], file=sys.stderr)
+            print(t_line[I * w : (I + 1) * w], file=sys.stderr)
+            print(x_line[I * w : (I + 1) * w], file=sys.stderr)
     else:
-        print >> sys.stderr, s_line
-        print >> sys.stderr, t_line
-        print >> sys.stderr, x_line 
+        print(s_line, file=sys.stderr)
+        print(t_line, file=sys.stderr)
+        print(x_line , file=sys.stderr)
 
 
 def map_label(Y):

@@ -38,7 +38,7 @@ class LogisticRegression:
         self.w = SGD(self.cost, w, X, Y, opt, lamb = lamb)
         '''        
 
-        print 'Done with function evalution C = %d' % self.c
+        print('Done with function evalution C = %d' % self.c)
 
     def test(self, X, Y):
         m, n = X.shape
@@ -93,6 +93,6 @@ if __name__ == '__main__':
     acc_train = clf.test(X_train, Y_train)
     acc_test = clf.test(X_test, Y_test)
 
-    print >> sys.stderr, 'Training accuracy for Logistic Regression : %lf%%' % (100.0 * acc_train)
-    print >> sys.stderr, 'Test accuracy for Logistic Regression : %lf%%' % (100.0 * acc_test)
+    print('Training accuracy for Logistic Regression : %lf%%' % (100.0 * acc_train), file=sys.stderr)
+    print('Test accuracy for Logistic Regression : %lf%%' % (100.0 * acc_test), file=sys.stderr)
 

@@ -42,7 +42,7 @@ class LinearRegression:
         '''
         self.w = CG(self.cost, w, 200, X = X, Y = Y, lamb = lamb)
         
-        print 'Done with function evalution C = %d' % self.c
+        print('Done with function evalution C = %d' % self.c)
 
     def test(self, X, Y):
         m, n = X.shape
@@ -52,7 +52,7 @@ class LinearRegression:
         r = X * self.w - Y
         rmse = sqrt(float(r.T * r) / len(Y))
 
-        print >> sys.stderr, 'Test RMSE : %lf' % rmse
+        print('Test RMSE : %lf' % rmse, file=sys.stderr)
         return rmse
     
     # (1 / (2 * m)) * (X * w.T - Y) ^ 2 + (lamb / 2) * (w.T * w)
