@@ -35,9 +35,9 @@ def trace():
     '''
     try:
         raise Exception
-    except:
+    except Exception:
         f = sys.exc_info()[2].tb_frame.f_back
-    print >> sys.stderr, 'function =', f.f_code.co_name, ', line =', f.f_lineno
+    print('function =', f.f_code.co_name, ', line =', f.f_lineno, file=sys.stderr)
 
 
 def read_dense_data(fp_data):
@@ -119,14 +119,14 @@ def plot_sequence_data(x, s, w = 128):
     x_line = ' '.join(x_out)
 
     if len(s_line) > w:
-        for I in range(len(s_line) / w + 1):
-            print >> sys.stderr, s_line[I * w : (I + 1) * w]
-            print >> sys.stderr, t_line[I * w : (I + 1) * w]
-            print >> sys.stderr, x_line[I * w : (I + 1) * w]
+        for I in range(int(len(s_line) / w + 1)):
+            print(s_line[I * w : (I + 1) * w], file=sys.stderr)
+            print(t_line[I * w : (I + 1) * w], file=sys.stderr)
+            print(x_line[I * w : (I + 1) * w], file=sys.stderr)
     else:
-        print >> sys.stderr, s_line
-        print >> sys.stderr, t_line
-        print >> sys.stderr, x_line 
+        print(s_line, file=sys.stderr)
+        print(t_line, file=sys.stderr)
+        print(x_line, file=sys.stderr) 
 
 
 def map_label(Y):

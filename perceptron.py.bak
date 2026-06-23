@@ -16,7 +16,7 @@ class Perceptron:
 
     def train(self, X, Y, alpha = 1.0, max_update = 1000, max_iter = 10000):
         m, n = X.shape
-        I = list(range(m))
+        I = range(m)
         self.w = np.matrix(np.zeros([n, 1]))
         
         update = 0
@@ -29,7 +29,7 @@ class Perceptron:
                 update += 1
                 if update > max_update: return
                 err += 1
-            print('Iter : %d\ttraining loss: %lf' % (iter, 1.0 * err / len(Y)), file=sys.stderr)
+            print >> sys.stderr, 'Iter : %d\ttraining loss: %lf' % (iter, 1.0 * err / len(Y))
 
     def test(self, X, Y):
        
@@ -59,7 +59,7 @@ class Pocket(Perceptron):
             err = P.sum()
 
             if update % 100 == 0:
-                print('Update : %d\ttraining loss: %lf' % (update, 1.0 * err / len(Y)), file=sys.stderr)
+                print >> sys.stderr, 'Update : %d\ttraining loss: %lf' % (update, 1.0 * err / len(Y))
 
             if err < min_err:
                 min_err = err
@@ -87,8 +87,8 @@ if __name__ == '__main__':
     acc_train = clf.test(X_train, Y_train)
     acc_test = clf.test(X_test, Y_test)
 
-    print('Training accuracy for Perceptron : %lf%%' % (100 *  acc_train), file=sys.stderr)
-    print('Test accuracy for Perceptron : %lf%%' % (100 *  acc_test), file=sys.stderr)
+    print >> sys.stderr, 'Training accuracy for Perceptron : %lf%%' % (100 *  acc_train)
+    print >> sys.stderr, 'Test accuracy for Perceptron : %lf%%' % (100 *  acc_test)
 
     clf = Pocket()
     clf.train(X_train, Y_train)
@@ -96,6 +96,6 @@ if __name__ == '__main__':
     acc_train = clf.test(X_train, Y_train)
     acc_test = clf.test(X_test, Y_test)
     
-    print('Training accuracy for Pocket : %lf%%' % (100 *  acc_train), file=sys.stderr)
-    print('Test accuracy for Pocket : %lf%%' % (100 *  acc_test), file=sys.stderr)
+    print >> sys.stderr, 'Training accuracy for Pocket : %lf%%' % (100 *  acc_train)
+    print >> sys.stderr, 'Test accuracy for Pocket : %lf%%' % (100 *  acc_test)
  
